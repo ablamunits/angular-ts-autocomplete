@@ -25,6 +25,6 @@ export default class BaseDriver {
 
 	enterValue(selector: string, value: string): void {
 		const inputField = $(this.element).find(selector);
-		inputField.val(value).trigger('change');
+		inputField.val(value).trigger('change').trigger('focus');
 	}
 }

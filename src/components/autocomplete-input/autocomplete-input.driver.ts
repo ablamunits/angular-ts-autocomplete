@@ -1,7 +1,8 @@
 import BaseDriver from './../../test-utils/base-driver';
+import {SearchItem} from './autocomplete-input.drv';
 
 export class AutocompleteInputDriver extends BaseDriver {
-	static build(searchableItems: string[]): AutocompleteInputDriver {
+	static build(searchableItems: SearchItem[]): AutocompleteInputDriver {
 		let elem, scope: any;
 		inject(($compile, $rootScope, $timeout) => {
 			scope = $rootScope.$new();

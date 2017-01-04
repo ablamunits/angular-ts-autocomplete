@@ -1,7 +1,12 @@
+import {SearchItem} from './autocomplete-input.drv';
 import {AutocompleteInputDriver} from './autocomplete-input.driver';
+
 describe ('Autocomplete Input field', () => {
-	const testSearchItems: string[] = ['This is some searchable item', 'this is another searchable item'];
-	const validTerm = 'searchable';
+	const testSearchItems: SearchItem[] = [
+		{ title: 'This is some searchable item', description: 'description 1' },
+		{ title: 'This is another searchable item', description: 'woop' }
+	];
+	const validTerm = 'This';
 
 	beforeEach(() => {
 		angular.mock.module('MainApp');
