@@ -3,9 +3,14 @@ export type SearchItem = {
 	description: string
 };
 
+enum KeyCode {
+	UP = 38, DOWN = 40
+}
+
 class AutocompleteInputDirectiveController {
 	searchableItems: SearchItem[];
 	results: SearchItem[];
+	selectedResultIndex: number = -1;
 	isFocused: boolean;
 	searchTerm: string;
 
@@ -25,6 +30,34 @@ class AutocompleteInputDirectiveController {
 
 	handleBlur() {
 		this.isFocused = false;
+		this.selectedResultIndex = -1;
+	}
+
+	handleResultMouseover($event, index) {
+		this.selectedResultIndex = index;
+	}
+
+	handleKey($event) {
+		const key: KeyCode = $event.keyCode;
+
+		switch (key) {
+			case KeyCode.UP: this.handleUpKeyPress($event);
+				break;
+			case KeyCode.DOWN: this.handleDownKeyPress($event);
+				break;
+		}
+	}
+
+	handleUpKeyPress($event) {
+		$event.preventDefault();
+		const minIndex = 0;
+		this.selectedResultIndex = Math.max(this.selectedResultIndex - 1, minIndex);
+	}
+
+	handleDownKeyPress($event) {
+		$event.preventDefault();
+		const maxIndex = this.results.length - 1;
+		this.selectedResultIndex = Math.min(this.selectedResultIndex + 1, maxIndex);
 	}
 }
 
