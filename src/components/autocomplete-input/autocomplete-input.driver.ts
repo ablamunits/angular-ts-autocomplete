@@ -28,6 +28,14 @@ export class AutocompleteInputDriver extends BaseDriver {
 		return this.isChildVisible('.results-container .empty-result');
 	}
 
+	getResultTitles(): string[] {
+		return this.getAllTextBySelector('.results-container .title');
+	}
+
+	getResultDescriptions(): string[] {
+		return this.getAllTextBySelector('.results-container .description');
+	}
+
 	typeIn(value: string): void {
 		this.enterValue('.search-input', value);
 	}

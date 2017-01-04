@@ -4,7 +4,9 @@ import {GithubRepositoryResult} from './../github-rep.srv';
 export class MainPageController {
 	$state: any;
 
+	// This is the search term used to fetch data from the GitHub API
 	searchTerm: string = 'fun';
+
 	githubRepositories: SearchItem[] = [];
 
 	constructor(private $timeout, private GithubRepositoryService, private $scope, $state) {

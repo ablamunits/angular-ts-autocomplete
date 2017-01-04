@@ -21,15 +21,25 @@ describe ('Autocomplete Input field', () => {
 	it('Should display results container when searching a valid term', () => {
 		const autocompleteInput = AutocompleteInputDriver.build(testSearchItems);
 		expect(autocompleteInput.isDisplayingResultsContainer()).toBe(false);
-		expect(autocompleteInput.typeIn(validTerm));
+		autocompleteInput.typeIn(validTerm);
 		expect(autocompleteInput.isDisplayingResultsContainer()).toBe(true);
+	});
+
+	it('Should show title and description in the results', () => {
+		const autocompleteInput = AutocompleteInputDriver.build(testSearchItems);
+		const expectedTitles = testSearchItems.map(item => item.title);
+		const expectedDescriptions = testSearchItems.map(item => item.description);
+
+		autocompleteInput.typeIn(validTerm);
+		expect(autocompleteInput.getResultTitles()).toEqual(expectedTitles);
+		expect(autocompleteInput.getResultDescriptions()).toEqual(expectedDescriptions);
 	});
 
 	it('Should inform when there are no results when typing', () => {
 		const autocompleteInput = AutocompleteInputDriver.build(testSearchItems);
 		const someInvalidTerm = 'fewfewfw';
 		expect(autocompleteInput.isDisplayingResultsContainer()).toBe(false);
-		expect(autocompleteInput.typeIn(someInvalidTerm));
+		autocompleteInput.typeIn(someInvalidTerm);
 		expect(autocompleteInput.isDisplayingEmptyResults()).toBe(true);
 	});
 });

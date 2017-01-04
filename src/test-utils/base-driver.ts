@@ -15,8 +15,17 @@ export default class BaseDriver {
 		return this.element.querySelector(selector);
 	}
 
-	getTextContent(selector: string): string {
+	findAll(selector: string): Element[] {
+		const elems = this.element.querySelectorAll(selector);
+		return Array.prototype.slice.call(elems);
+	}
+
+	getText(selector: string): string {
 		return this.find(selector).textContent;
+	}
+
+	getAllTextBySelector(selector: string): string[] {
+		return this.findAll(selector).map(e => e.textContent);
 	}
 
 	isChildVisible(selector: string): boolean {
