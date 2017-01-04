@@ -16,6 +16,9 @@
     ],
     "files": [
         "src/app.ts",
+        "src/components/autocomplete-input/autocomplete-input.driver.ts",
+        "src/components/autocomplete-input/autocomplete-input.drv.ts",
+        "src/components/autocomplete-input/autocomplete-input.test.ts",
         "src/pages/main.ctrl.ts",
         "src/test-utils/base-driver.ts"
     ],

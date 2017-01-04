@@ -18,4 +18,13 @@ export default class BaseDriver {
 	getTextContent(selector: string): string {
 		return this.find(selector).textContent;
 	}
+
+	isChildVisible(selector: string): boolean {
+		return !!this.find(selector);
+	}
+
+	enterValue(selector: string, value: string): void {
+		const inputField = $(this.element).find(selector);
+		inputField.val(value).trigger('change');
+	}
 }
