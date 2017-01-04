@@ -9,7 +9,7 @@ export class AutocompleteInputDriver extends BaseDriver {
 
 			elem = $compile(`<autocomplete-input searchable-items="items"></autocomplete-input>`)(scope);
 			scope.$digest();
-			document.body.innerHTML = elem;
+			$(document.body).empty().append(elem);
 		});
 
 		return new AutocompleteInputDriver(elem, scope);
@@ -19,8 +19,12 @@ export class AutocompleteInputDriver extends BaseDriver {
 		return this.isChildVisible('.search-input');
 	}
 
-	isDisplayingResults(): boolean {
+	isDisplayingResultsContainer(): boolean {
 		return this.isChildVisible('.results-container');
+	}
+
+	isDisplayingEmptyResults(): boolean {
+		return this.isChildVisible('.results-container .empty-result');
 	}
 
 	typeIn(value: string): void {

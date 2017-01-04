@@ -13,10 +13,18 @@ describe ('Autocomplete Input field', () => {
 		expect(autocompleteInput.isInputFieldVisible()).toBe(true);
 	});
 
-	it('Should display results container when search is initiated', () => {
+	it('Should display results container when searching a valid term', () => {
 		const autocompleteInput = AutocompleteInputDriver.build(testSearchItems);
-		expect(autocompleteInput.isDisplayingResults()).toBe(false);
+		expect(autocompleteInput.isDisplayingResultsContainer()).toBe(false);
 		expect(autocompleteInput.typeIn(validTerm));
-		expect(autocompleteInput.isDisplayingResults()).toBe(true);
+		expect(autocompleteInput.isDisplayingResultsContainer()).toBe(true);
+	});
+
+	it('Should inform when there are no results when typing', () => {
+		const autocompleteInput = AutocompleteInputDriver.build(testSearchItems);
+		const someInvalidTerm = 'fewfewfw';
+		expect(autocompleteInput.isDisplayingResultsContainer()).toBe(false);
+		expect(autocompleteInput.typeIn(someInvalidTerm));
+		expect(autocompleteInput.isDisplayingEmptyResults()).toBe(true);
 	});
 });
