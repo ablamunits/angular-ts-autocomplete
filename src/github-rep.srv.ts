@@ -1,4 +1,4 @@
-// Define my own type, to better work with the request result
+// Define our own type, to better work with the request result
 export type GithubRepositoryResult = {
 	id: number;
 	name: string;
@@ -15,9 +15,11 @@ export class GithubServiceProvider {
 	search(searchTerm: string, page: number = 1): ng.IPromise<GithubRepositoryResult[]> {
 		const apiUrl = this.repoApiUrl(searchTerm, page);
 
+		// Make a GET request to GitHub's API and map the results to our own GitHubRepositoryResult, which
+		// only contains a fraction of the data sent back by the API.
 		return this.$http.get(apiUrl).then((result: any) => {
 			const items = result.data.items.map(item => {
-				return { id: item.id, name: item.name, url: item.url };
+				return { id: item.id, name: item.name, url: item.html_url };
 			});
 
 			return items;

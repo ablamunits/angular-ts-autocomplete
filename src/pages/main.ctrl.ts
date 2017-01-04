@@ -15,7 +15,8 @@ export class MainPageController {
 	}
 
 	fetchGithubRepositories() {
-		// Use the github search service to lookup repositories that match the search term
+		// Use the github search service to lookup repositories that match the search term.
+		// Map the results to a valid array of SearchItems that can be used by the autocomplete-input component.
 		this.GithubRepositoryService.search(this.searchTerm).then((result: GithubRepositoryResult[]) => {
 			this.githubRepositories = result.map(githubRepo => {
 				return {

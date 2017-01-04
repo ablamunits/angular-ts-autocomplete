@@ -1,2 +1,11 @@
 @import './styling/vars';
 @import './styling/common';
+
+@import './pages/main';
+
+body {
+	font-size: 14;
+	font-family: sans-serif;
+	color: $main-grey;
+	background-color: $green;
+}
