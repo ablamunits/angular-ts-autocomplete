@@ -4,24 +4,26 @@ export type SearchItem = {
 };
 
 enum KeyCode {
-	UP = 38, DOWN = 40
+	UP = 38, DOWN = 40, ENTER = 13
 }
 
 class AutocompleteInputDirectiveController {
 	searchableItems: SearchItem[];
+	onResultClick: (result) => void;
+
 	results: SearchItem[];
 	selectedResultIndex: number = -1;
 	isFocused: boolean;
 	searchTerm: string;
 
-	constructor() {
+	constructor(private $sce) {
 		// Empty
 	}
 
 	handleInputChange() {
-		// When there is a change in the input field text, filter out the irrelevant results based on the beginning of
+		// When there is a change in the input field text, filter out the irrelevant results based on the content of
 		// the string. If the text field is empty, hide the results altogether.
-		this.results = this.searchTerm ? this.searchableItems.filter(item => item.title.indexOf(this.searchTerm) === 0) : [];
+		this.results = this.searchTerm ? this.searchableItems.filter(item => item.title.indexOf(this.searchTerm) > -1) : [];
 	}
 
 	handleFocus() {
@@ -30,6 +32,10 @@ class AutocompleteInputDirectiveController {
 
 	handleBlur() {
 		this.isFocused = false;
+		this.deselectResult();
+	}
+
+	deselectResult() {
 		this.selectedResultIndex = -1;
 	}
 
@@ -45,6 +51,7 @@ class AutocompleteInputDirectiveController {
 				break;
 			case KeyCode.DOWN: this.handleDownKeyPress($event);
 				break;
+			case KeyCode.ENTER: this.handleEnterKeyPress($event);
 		}
 	}
 
@@ -59,6 +66,22 @@ class AutocompleteInputDirectiveController {
 		const maxIndex = this.results.length - 1;
 		this.selectedResultIndex = Math.min(this.selectedResultIndex + 1, maxIndex);
 	}
+
+	handleEnterKeyPress($event) {
+		$event.preventDefault();
+		const result = this.results[this.selectedResultIndex];
+		this.handleResultClick(result);
+	}
+
+	handleResultClick(result: SearchItem) {
+		this.onResultClick({ result });
+		this.deselectResult();
+	}
+
+	highlight(text, partialText): string {
+		const htmlString = `<span class="highlight">${partialText}</span>`;
+		return this.$sce.trustAsHtml(text.replace(partialText, htmlString));
+	}
 }
 
 export function autocompleteInputDirectiveFactory(): ng.IDirective {
@@ -66,6 +89,7 @@ export function autocompleteInputDirectiveFactory(): ng.IDirective {
 		restrict: 'E',
 		scope: {
 			searchableItems: '=',
+			onResultClick: '&'
 		},
 		templateUrl: 'components/autocomplete-input/autocomplete-input.tpl.html',
 		controller: AutocompleteInputDirectiveController,

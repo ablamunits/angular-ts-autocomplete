@@ -1,13 +1,14 @@
 @mixin input-field {
 	height: 40px;
 	font-size: 18px;
-	border: 1px solid $light-grey;
+	font-weight: 300;
+	border: 0;
+	border-bottom: 2px solid $light-grey;
 	outline: none;
 	border-radius: 4px;
-	padding: 5px;
+	padding: 10px;
 
 	&:focus {
-		border: 1px solid $grey;
 		background-color: $superlight-grey;
 	}
 }

@@ -8,4 +8,15 @@ body {
 	font-family: sans-serif;
 	color: $main-grey;
 	background-color: $green;
+	position: relative;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
+	color: rgba($main-grey, .3);
+	font-size: 14px;
 }

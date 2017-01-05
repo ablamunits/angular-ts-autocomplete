@@ -2,15 +2,12 @@ import {SearchItem} from './../components/autocomplete-input/autocomplete-input.
 import {GithubRepositoryResult} from './../github-rep.srv';
 
 export class MainPageController {
-	$state: any;
-
 	// This is the search term used to fetch data from the GitHub API
-	searchTerm: string = 'fun';
+	searchTerm: string = 'cat';
 
 	githubRepositories: SearchItem[] = [];
 
-	constructor(private $timeout, private GithubRepositoryService, private $scope, $state) {
-		this.$state = $state;
+	constructor(private $timeout, private GithubRepositoryService, private $scope, private $state, private $window) {
 		this.fetchGithubRepositories();
 	}
 
@@ -25,5 +22,9 @@ export class MainPageController {
 				};
 			});
 		});
+	}
+
+	onResultClick(result: SearchItem) {
+		this.$window.open(result.description, '_blank');
 	}
 }
