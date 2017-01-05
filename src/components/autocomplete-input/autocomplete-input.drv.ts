@@ -1,3 +1,4 @@
+// A type definition for the SearchItem used by the component
 export type SearchItem = {
 	title: string,
 	description: string
@@ -8,22 +9,27 @@ enum KeyCode {
 }
 
 class AutocompleteInputDirectiveController {
+	searchTerm: string;
+
 	searchableItems: SearchItem[];
 	onResultClick: (result) => void;
 
 	results: SearchItem[];
 	selectedResultIndex: number = -1;
 	isFocused: boolean;
-	searchTerm: string;
 
 	constructor(private $sce) {
-		// Empty
+		// Empty Constructor
 	}
 
 	handleInputChange() {
 		// When there is a change in the input field text, filter out the irrelevant results based on the content of
 		// the string. If the text field is empty, hide the results altogether.
-		this.results = this.searchTerm ? this.searchableItems.filter(item => item.title.indexOf(this.searchTerm) > -1) : [];
+		this.results = this.searchTerm ? this.searchableItems.filter(item => this.itemMatchesSearchTerm(item)) : [];
+	}
+
+	itemMatchesSearchTerm(item: SearchItem): boolean {
+		return item.title.indexOf(this.searchTerm) > -1;
 	}
 
 	handleFocus() {

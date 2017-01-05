@@ -1,6 +1,6 @@
 <div class="autocomplete-input">
 	<input type="text" placeholder="Type something..." class="search-input" ng-model="ctrl.searchTerm" ng-keydown="ctrl.handleKey($event)" ng-change="ctrl.handleInputChange()" ng-focus="ctrl.handleFocus()" ng-blur="ctrl.handleBlur()"/>
-	<div class="results-container" ng-if="ctrl.isFocused">
+	<div class="results-container" ng-if="ctrl.isFocused" ng-class="{'pending': !ctrl.searchTerm}">
 		<div class="result" ng-repeat="result in ctrl.results track by $index" ng-mousedown="ctrl.handleResultClick(result)" ng-class="{selected: ctrl.selectedResultIndex === $index}" ng-mouseenter="ctrl.handleResultMouseover($event, $index)">
 			<div class="title" ng-bind-html="ctrl.highlight(result.title, ctrl.searchTerm)"></div>
 			<div class="description">{{ result.description }}</div>

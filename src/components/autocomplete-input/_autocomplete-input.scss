@@ -1,19 +1,30 @@
 .autocomplete-input {
 	width: 500px;
+	text-align: center;
 
 	.search-input {
 		@include input-field();
 
-		width: 100%;
+		width: 400px;
+		margin: 0 auto;
+		transition: width .1s ease-out;
+
+		&:focus {
+			width: 100%;
+			transition: width .1s ease-in;
+		}
 	}
 
 	.results-container {
-		@include shadow();
-
+		text-align: initial;
 		max-height: 500px;
 		overflow: auto;
 		border-bottom-right-radius: 4px;
 		border-bottom-left-radius: 4px;
+
+		&:not(.pending) {
+			@include shadow();
+		}
 
 		.result {
 			border-bottom: 1px solid $xlight-grey;
@@ -21,18 +32,20 @@
 			background-color: $white;
 			padding: 15px;
 			cursor: pointer;
+			transition: background-color .2s linear;
 
 			&.selected {
 				background-color: $superlight-grey;
+				transition: background-color .3s linear;
 			}
 
 			.title {
 				font-size: 1.2em;
 				margin-bottom: 5px;
-			}
 
-			.highlight {
-				color: $green;
+				.highlight {
+					color: $green;
+				}
 			}
 
 			.description {
